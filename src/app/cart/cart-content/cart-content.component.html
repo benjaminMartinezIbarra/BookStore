@@ -1,0 +1,47 @@
+<ng-template #empty>
+  <p>Votre Panier est vide.</p>
+</ng-template>
+<pre> {{cart.rows |json}}</pre>
+<table *ngIf="!cart.isEmpty() ; else empty">
+  <thead>
+  <tr>
+    <th>
+    </th>
+    <th>Titre</th>
+    <th>Auteur</th>
+    <th>Prix</th>
+    <th>Quantité</th>
+    <th>Montant</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tfoot>
+  <tr *ngFor="let row of cart.rows" class="cart-row">
+    <td class="row-image"> <img [src]="row.book.image"> </td>
+    <td class="title"> {{row.book.title}}</td>
+    <td class="row-author"> {{row.book.author}}</td>
+    <td class="row-price"> {{row.book.price |currency: 'EUR'}}</td>
+    <td class="row-quantity"><input type="number"
+      [(ngModel)]="row.quantity"/></td>
+    <td class="row-amount">{{row.amount |currency: 'EUR'}}</td>
+    <td class="row-button">
+      <button (click)="cart.remove(row)">
+        <img src ="assets/img/cart-remove.png">
+      </button>
+    </td>
+
+  </tr>
+  </tfoot>
+  <tr>
+    <td colspan="3">
+    </td>
+    <td>TOTAL:</td>
+    <td class="total-quantity">{{cart.count()}} art.</td>
+    <td class="total-price">{{cart.total() | currency: 'EUR'}}</td>
+    <td></td>
+  </tr>
+</table>
+
+<p>
+  <button (click)="orderCart()">PAsser la commande</button>
+</p>

@@ -1,0 +1,12 @@
+<span (mouseleave)="onLeave()">
+  <span *ngFor="let full of stars
+; index as i"
+        (click)="onClick(i)"
+  (mouseenter)="onEnter(i)">
+  <ng-container *ngIf="full">★</ng-container>
+   <ng-container *ngIf="!full">☆</ng-container>
+</span>
+</span>
+
+{{logRefresh()}}
+

@@ -1,0 +1,72 @@
+<h2>Reactive Form</h2>
+
+<div class="debug">
+  <pre>{{form.value |json}}</pre>
+</div>
+
+<form [formGroup]="form"
+(ngSubmit)="onSubmit()"
+[class.submitted]="submitted">
+  <fieldset formGroupName="identity">
+    <legend>IDentité</legend>
+    <app-field label="prenom">
+      <input type="text" formControlName="firstname">
+    </app-field>
+    <app-field label="nom">
+      <input type="text" formControlName="lastname">
+    </app-field>
+    <app-field label="email">
+      <input type="email" formControlName="email">
+    </app-field>
+    <app-field label="phone">
+      <input type="tel" formControlName="phone">
+    </app-field>
+  </fieldset>
+
+  <fieldset formGroupName="shipping">
+    <legend>Adresse</legend>
+    <app-field label="numéro et rue">
+      <input type="text" formControlName="street">
+    </app-field>
+    <app-field label="code postal">
+      <input type="text" formControlName="zipcode">
+    </app-field>
+    <app-field label="ville">
+      <input type="text" formControlName="city">
+    </app-field>
+    <app-field label="pays">
+      <input type="text" formControlName="country">
+    </app-field>
+  </fieldset>
+
+  <p>
+    <label>
+      <input type="checkbox"
+      formControlName="distinctBilling"
+      (change)="onToggleCheckbox()">
+      Adresse de facturation différente
+    </label>
+  </p>
+
+  <fieldset formGroupName="billing"
+  *ngIf="showDistinctBillingAdress()">
+    <legend>Billing</legend>
+    <app-field label="numéro et rue">
+      <input type="text" formControlName="street">
+    </app-field>
+    <app-field label="code postal">
+      <input type="text" formControlName="zipcode">
+    </app-field>
+    <app-field label="ville">
+      <input type="text" formControlName="city">
+    </app-field>
+    <app-field label="pays">
+      <input type="text" formControlName="country">
+    </app-field>
+  </fieldset>
+
+  <p>
+    <button [disabled]="isButtonDisabled()" type="submit">Envoyer</button>
+  </p>
+
+</form>

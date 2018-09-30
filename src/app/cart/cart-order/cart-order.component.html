@@ -1,0 +1,122 @@
+<h2>Template Driven Form</h2>
+
+<div class="debug">
+  <pre>{{data |json}}</pre>
+  <p>
+    <button (click)="logForminfo()">Log form info</button>
+  </p>
+</div>
+
+<form #forminfo="ngForm"
+      [class.submitted]="forminfo.submitted"
+      (ngSubmit)="forminfo.valid && save()">
+
+  <fieldset ngModelGroup="identity">
+    <legend>Identité</legend>
+
+    <p><label>Prénom
+      <input type="text" name="firstname"
+             [(ngModel)]="data.identity.firstname"></label></p>
+
+    <p><sup>*</sup><label>Nom
+      <input type="text" name="lastname"
+             [(ngModel)]="data.identity.lastname"
+             required minlength="2"
+             #lastnameInfo="ngModel"></label>
+      <app-error [control]="lastnameInfo"
+                 [form]="forminfo"></app-error>
+    </p>
+    <app-field label="*nom">
+      <input type="text" name="lastname>"
+             [(ngModel)]="data.identity.lastname"
+             required minlength="2">
+    </app-field>
+
+    <p>
+      <app-field label="Email">
+      <input type="email" name="email"
+             [(ngModel)]="data.identity.email">
+      </app-field>
+    </p>
+
+    <p><label>Téléphone
+      <input type="tel" name="phone"
+             [(ngModel)]="data.identity.phone"></label></p>
+
+  </fieldset>
+
+  <fieldset ngModelGroup="shipping">
+    <legend>Adresse de livraison</legend>
+
+    <p><label>Numéro et rue
+      <input type="text" name="street"
+             [(ngModel)]="data.shipping.street">
+    </label></p>
+
+    <p>
+      <app-field >
+      <label><sup>*</sup>Code postal
+      <input type="text" name="zipcode"
+             [(ngModel)]="data.shipping.zipcode"
+             required appZipcodeValidator
+      ></label>
+      </app-field>
+    </p>
+
+    <p><label><sup>*</sup>Ville
+      <input type="text" name="city"
+             [(ngModel)]="data.shipping.city"></label></p>
+
+    <p><label>Pays
+      <input list="shippingCountryList" type="text" name="country"
+             [(ngModel)]="data.shipping.country"
+      #shippingCountryInfo="ngModel"></label></p>
+<datalist id="shippingCountryList">
+  <option *ngFor="let country of countryList$ |async">{{country}}</option>
+</datalist>
+  </fieldset>
+
+  <p>
+    <label>
+      <input type="checkbox" name="distinctBilling"
+      [(ngModel)]="data.distinctBilling">
+      Adresse de facturation différente
+    </label>
+  </p>
+
+  <fieldset ngModelGroup="billing" *ngIf="data.distinctBilling">
+    <legend>Adresse de Facturation</legend>
+
+    <p><label>Numéro et rue
+      <input type="text" name="street"
+             [(ngModel)]="data.billing.street">
+    </label></p>
+
+    <p><label><sup>*</sup>Code postal
+      <input type="text" name="zipcode"
+             [(ngModel)]="data.billing.zipcode"
+             required pattern="[0-9]{4,5}"
+             #zipcode="ngModel"
+      ></label>
+      <app-error [control]="zipcode"
+                 [form]="forminfo">>
+      </app-error>
+    </p>
+
+    <p><label><sup>*</sup>Ville
+      <input type="text" name="city"
+             [(ngModel)]="data.billing.city"></label></p>
+
+    <p><label>Pays
+      <input type="text" name="country"
+             [(ngModel)]="data.billing.country"></label></p>
+
+  </fieldset>
+
+
+  <p>
+    <button type="submit" [disabled]="forminfo.invalid && forminfo.submitted">Envoyer</button>
+  </p>
+
+
+</form>

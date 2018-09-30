@@ -1,0 +1,14 @@
+a {
+  text-decoration: none;
+  border-bottom: 1px solid grey;
+  padding: 3px;
+  margin: 4px;
+  color: darkblue;
+}
+
+a.active {
+  color: darkred;
+  background-color: #cccccc;
+  font-weight: bold;
+  border-bottom: 2px solid darkred;
+}

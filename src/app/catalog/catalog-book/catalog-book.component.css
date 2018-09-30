@@ -1,0 +1,12 @@
+.label {
+  float: left;
+  width: 150px;
+  padding: 5px;
+  color: darkred;
+  font-weight: bold;
+}
+.value {
+  width: 700px;
+  margin-left: 150px;
+  padding: 5px;
+}

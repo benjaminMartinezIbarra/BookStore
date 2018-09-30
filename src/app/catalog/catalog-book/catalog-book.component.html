@@ -1,0 +1,30 @@
+<ng-template #loading>
+  Chargement en cours...
+  <img src="assets/img/ajax-loader.gif">
+</ng-template>
+
+<div *ngIf="book$ |async as book ; else loading">
+  <div class="label">Couverture</div>
+  <div class="value"><img [src]="book.image"></div>
+
+  <div class="label">Titre</div>
+  <div class="value">{{book.title}}</div>
+
+  <div class="label">Auteur</div>
+  <div class="value">{{book.author}}</div>
+
+  <div class="label">Prix</div>
+  <div class="value">{{book.price |currency: 'EUR'}}</div>
+
+  <div class="label">Note</div>
+  <div class="value">{{book.rating |rating}}</div>
+
+  <div class="label">Pages</div>
+  <div class="value">{{book.pages}}</div>
+
+  <div class="label">Description</div>
+  <div class="value" [innerHTML]="book.description"></div>
+  <app-buy-book-button [book]="book"></app-buy-book-button>
+
+</div>
+

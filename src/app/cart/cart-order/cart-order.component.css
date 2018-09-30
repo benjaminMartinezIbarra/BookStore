@@ -1,0 +1,7 @@
+.debug {
+  float: right;
+  padding: 1em;
+  margin: 1em;
+  border: 2px dotted grey;
+  border-radius: 7px;
+}

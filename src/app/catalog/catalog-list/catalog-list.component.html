@@ -1,0 +1,31 @@
+<table>
+  <thead>
+  <tr>
+    <th></th>
+    <th>Titre</th>
+    <th>Auteur</th>
+    <th>Prix</th>
+    <th>Note</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of bookList$ | async" class="app-catalog-list-item">
+    <td>
+      <a [routerLink]="['/catalog/book', book.id]">
+        <img [src]="book.image">
+      </a>
+    </td>
+    <td class="row-title">{{book.title}}</td>
+    <td class="row-author">{{book.author}}</td>
+    <td class="row-price right">{{book.price | currency: 'EUR'}}</td>
+    <td class="row-rating">{{book.rating}}</td>
+     <td><app-rating [(value)]="book.rating"></app-rating></td>
+    <td><app-buy-book-button [book]="book"></app-buy-book-button>
+    <input type = "numer" [(ngModel)]="book.rating"></td>
+
+
+
+  </tr>
+  </tbody>
+
+</table>
